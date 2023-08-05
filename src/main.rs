@@ -12,7 +12,18 @@ use systems::*;
 fn main() {
     App::new()
         // NOTE: Bevy plugins
-        .add_plugins(DefaultPlugins)
+        .add_plugins(DefaultPlugins.set(WindowPlugin {
+            primary_window: Some(Window {
+                title: "Bevy Ball Game".to_string(),
+                resolution: (1280., 720.).into(),
+                // NOTE: Bind to canvas included in `index.html`
+                canvas: Some("#bevy".to_owned()),
+                // NOTE: Tells wasm not to override default event handling, like F5 and Ctrl+R
+                prevent_default_event_handling: false,
+                ..default()
+            }),
+            ..default()
+        }))
         // NOTE: State
         .add_state::<AppState>()
         // NOTE: My plugins
