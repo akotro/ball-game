@@ -2,6 +2,7 @@ use bevy::{prelude::*, window::PrimaryWindow};
 use rand::prelude::*;
 
 use super::{components::*, resources::*, ENEMY_SIZE, ENEMY_SPEED, NUMBER_OF_ENEMIES};
+use crate::helpers::{despawn_entities, spawn_entity};
 
 pub fn spawn_enemies(
     mut commands: Commands,
@@ -14,23 +15,20 @@ pub fn spawn_enemies(
         let random_x = random::<f32>() * window.width();
         let random_y = random::<f32>() * window.height();
 
-        commands.spawn((
-            SpriteBundle {
-                transform: Transform::from_xyz(random_x, random_y, 0.0),
-                texture: asset_server.load("sprites/ball_red_large.png"),
-                ..default()
-            },
+        spawn_entity(
+            &mut commands,
+            &asset_server,
+            "sprites/ball_red_large.png",
+            Vec2::new(random_x, random_y),
             Enemy {
                 direction: Vec2::new(random::<f32>(), random::<f32>()).normalize(),
             },
-        ));
+        )
     }
 }
 
 pub fn despawn_enemies(mut commands: Commands, enemy_query: Query<Entity, With<Enemy>>) {
-    for enemy_entity in enemy_query.iter() {
-        commands.entity(enemy_entity).despawn();
-    }
+    despawn_entities(&mut commands, &enemy_query);
 }
 
 pub fn enemy_movement(mut enemy_query: Query<(&mut Transform, &Enemy)>, time: Res<Time>) {
@@ -130,15 +128,14 @@ pub fn spawn_enemies_over_time(
         let random_x = random::<f32>() * window.width();
         let random_y = random::<f32>() * window.height();
 
-        commands.spawn((
-            SpriteBundle {
-                transform: Transform::from_xyz(random_x, random_y, 0.0),
-                texture: asset_server.load("sprites/ball_red_large.png"),
-                ..default()
-            },
+        spawn_entity(
+            &mut commands,
+            &asset_server,
+            "sprites/ball_red_large.png",
+            Vec2::new(random_x, random_y),
             Enemy {
                 direction: Vec2::new(random::<f32>(), random::<f32>()).normalize(),
             },
-        ));
+        )
     }
 }

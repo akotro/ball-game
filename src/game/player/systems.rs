@@ -4,6 +4,7 @@ use super::components::*;
 use crate::{
     enemy::{components::Enemy, ENEMY_SIZE},
     events::GameOverEvent,
+    helpers::{despawn_single_entity, spawn_entity},
     score::resources::Score,
     star::{components::Star, STAR_SIZE},
 };
@@ -18,20 +19,17 @@ pub fn spawn_player(
 ) {
     let window = window_query.get_single().unwrap();
 
-    commands.spawn((
-        SpriteBundle {
-            transform: Transform::from_xyz(window.width() / 2.0, window.height() / 2.0, 0.0),
-            texture: asset_server.load("sprites/ball_blue_large.png"),
-            ..default()
-        },
+    spawn_entity(
+        &mut commands,
+        &asset_server,
+        "sprites/ball_blue_large.png",
+        Vec2::new(window.width() / 2.0, window.height() / 2.0),
         Player {},
-    ));
+    );
 }
 
 pub fn despawn_player(mut commands: Commands, player_query: Query<Entity, With<Player>>) {
-    if let Ok(player_entity) = player_query.get_single() {
-        commands.entity(player_entity).despawn();
-    }
+    despawn_single_entity(&mut commands, &player_query);
 }
 
 pub fn player_movement(
@@ -113,7 +111,6 @@ pub fn enemy_hit_player(
             let enemy_radius = ENEMY_SIZE / 2.0;
 
             if distance < player_radius + enemy_radius {
-                println!("Enemy hit player! Game Over!");
                 let sound_effect = asset_server.load("audio/explosionCrunch_000.ogg");
                 audio.play(sound_effect);
                 commands.entity(player_entity).despawn();
@@ -121,6 +118,10 @@ pub fn enemy_hit_player(
                 game_over_event_writer.send(GameOverEvent {
                     final_score: score.value,
                 });
+                println!(
+                    "Enemy hit player! GameOverEvent sent with score: {}!",
+                    score.value
+                );
             }
         }
     }

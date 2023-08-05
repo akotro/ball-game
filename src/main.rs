@@ -1,5 +1,6 @@
 pub mod events;
 mod game;
+pub mod helpers;
 mod main_menu;
 pub mod systems;
 
@@ -23,7 +24,11 @@ fn main() {
         .add_system(transition_to_game_state)
         .add_system(transition_to_main_menu_state)
         .add_system(exit_game)
-        .add_system(handle_game_over_event)
+        // HACK: This is a hack to make sure that the game_over_menu's score is updated.
+        // Possibly occurs because the GameOverEvent is read both here as well as in
+        // game_over_menu's update_final_score_text on the same frame and thus
+        // the event is lost in update_final_score_text. Need to find a better solution.
+        .add_system(handle_game_over_event.in_base_set(CoreSet::PostUpdate))
         .run();
 }
 
