@@ -28,3 +28,8 @@ To play the game, use the following keybinds:
 ## Credits
 
 Credit goes to [Jacques](https://www.youtube.com/@jacques-dev) for their Bevy tutorials and to [Kenney](https://www.kenney.nl/) for the assets.
+Additional credits can be found in the [CREDITS](credits/CREDITS.md) file.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
