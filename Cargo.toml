@@ -17,3 +17,6 @@ opt-level = 3
 # bevy = { version = "0.10.0", features = ["dynamic_linking"] } # NOTE: Disable for release
 bevy = { version = "0.10.0" }
 rand = "0.8.5"
+
+[build-dependencies]
+embed-resource = "1.4"
