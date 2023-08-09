@@ -45,7 +45,7 @@ pub fn get_player_position_grid(
 
     let player_cell_x = (player_translation.x / cell_size).floor() as usize;
     let player_cell_y = (player_translation.y / cell_size).floor() as usize;
-    println!("Player cell: {}, {}", player_cell_x, player_cell_y);
+    // println!("Player cell: {}, {}", player_cell_x, player_cell_y);
     grid[player_cell_y][player_cell_x] = true;
 
     grid

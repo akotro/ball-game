@@ -20,6 +20,7 @@ impl Plugin for GameOverMenuPlugin {
                     interact_with_main_menu_button,
                     interact_with_quit_button,
                     update_final_score_text,
+                    update_high_score_text.after(update_final_score_text),
                 )
                     .in_set(OnUpdate(AppState::GameOver)),
             )

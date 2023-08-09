@@ -64,7 +64,7 @@ pub fn update_player_position_grid(
 
     let player_cell_x = (player_translation.x / CELL_SIZE).floor() as usize;
     let player_cell_y = (player_translation.y / CELL_SIZE).floor() as usize;
-    println!("Updated player cell: {}, {}", player_cell_x, player_cell_y);
+    // println!("Updated player cell: {}, {}", player_cell_x, player_cell_y);
     player_grid.grid[player_cell_y][player_cell_x] = true;
 }
 

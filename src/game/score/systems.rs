@@ -22,9 +22,12 @@ pub fn update_high_scores(
     mut high_scores: ResMut<HighScores>,
 ) {
     for event in game_over_event_reader.iter() {
-        high_scores
-            .scores
-            .push(("Player".to_string(), event.final_score))
+        if high_scores.scores.is_empty() || event.final_score > high_scores.scores.last().unwrap().1
+        {
+            high_scores
+                .scores
+                .push(("Player".to_string(), event.final_score));
+        }
     }
 }
 

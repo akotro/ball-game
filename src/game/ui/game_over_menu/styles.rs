@@ -20,7 +20,7 @@ pub const GAME_OVER_MENU_CONTAINER_STYLE: Style = Style {
     flex_direction: FlexDirection::Column,
     justify_content: JustifyContent::Center,
     align_items: AlignItems::Center,
-    size: Size::new(Val::Px(400.0), Val::Px(400.0)),
+    size: Size::new(Val::Px(400.0), Val::Px(500.0)),
     gap: Size::new(Val::Px(8.0), Val::Px(8.0)),
     ..Style::DEFAULT
 };
@@ -36,7 +36,15 @@ pub fn get_title_text_style(asset_server: &Res<AssetServer>) -> TextStyle {
     TextStyle {
         font: asset_server.load("fonts/FiraSans-Bold.ttf"),
         font_size: 64.0,
-        color: Color::rgb(1.0, 1.0, 1.0),
+        color: Color::CRIMSON,
+    }
+}
+
+pub fn get_high_score_text_style(asset_server: &Res<AssetServer>) -> TextStyle {
+    TextStyle {
+        font: asset_server.load("fonts/FiraSans-Bold.ttf"),
+        font_size: 48.0,
+        color: Color::SEA_GREEN,
     }
 }
 

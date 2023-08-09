@@ -37,6 +37,21 @@ pub fn build_game_over_menu(commands: &mut Commands, asset_server: &Res<AssetSer
                         },
                         ..default()
                     });
+                    // High Score Text
+                    parent.spawn((
+                        TextBundle {
+                            text: Text {
+                                sections: vec![TextSection::new(
+                                    "High Score:",
+                                    get_high_score_text_style(asset_server),
+                                )],
+                                alignment: TextAlignment::Center,
+                                ..default()
+                            },
+                            ..default()
+                        },
+                        HighScoreText {},
+                    ));
                     // Final Score Text
                     parent.spawn((
                         TextBundle {

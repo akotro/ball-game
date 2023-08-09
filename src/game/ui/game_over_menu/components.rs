@@ -4,6 +4,9 @@ use bevy::prelude::Component;
 pub struct GameOverMenu {}
 
 #[derive(Component)]
+pub struct HighScoreText {}
+
+#[derive(Component)]
 pub struct FinalScoreText {}
 
 #[derive(Component)]
