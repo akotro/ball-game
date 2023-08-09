@@ -5,7 +5,9 @@ mod systems;
 use bevy::prelude::*;
 
 use self::{resources::*, systems::*};
-use super::SimulationState;
+use super::{
+    player::systems::generate_player_position_grid, SimulationState, SpawnOthersSystemSet,
+};
 use crate::AppState;
 
 pub const NUMBER_OF_ENEMIES: usize = 4;
@@ -18,7 +20,12 @@ impl Plugin for EnemyPlugin {
     fn build(&self, app: &mut App) {
         app.init_resource::<EnemySpawnTimer>()
             // NOTE: Enter state systems
-            .add_system(spawn_enemies.in_schedule(OnEnter(AppState::Game)))
+            .add_system(
+                spawn_enemies
+                    .after(generate_player_position_grid)
+                    .in_set(SpawnOthersSystemSet)
+                    .in_schedule(OnEnter(AppState::Game)),
+            )
             // NOTE: Systems
             .add_systems(
                 (

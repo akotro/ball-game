@@ -4,7 +4,11 @@ pub mod helpers;
 mod main_menu;
 pub mod systems;
 
-use bevy::prelude::*;
+use bevy::{
+    diagnostic::{FrameTimeDiagnosticsPlugin, LogDiagnosticsPlugin},
+    prelude::*,
+};
+use bevy_prototype_debug_lines::*;
 use game::*;
 use main_menu::*;
 use systems::*;
@@ -24,6 +28,10 @@ fn main() {
             }),
             ..default()
         }))
+        // NOTE: Debug plugins
+        .add_plugin(LogDiagnosticsPlugin::default())
+        // .add_plugin(FrameTimeDiagnosticsPlugin::default())
+        .add_plugin(DebugLinesPlugin::default())
         // NOTE: State
         .add_state::<AppState>()
         // NOTE: My plugins
@@ -47,6 +55,7 @@ fn main() {
 pub enum AppState {
     #[default]
     MainMenu,
+    Startup,
     Game,
     GameOver,
 }

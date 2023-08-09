@@ -1,10 +1,11 @@
 pub mod components;
-mod systems;
+pub mod resources;
+pub mod systems;
 
 use bevy::prelude::*;
 
-use self::systems::*;
-use super::SimulationState;
+use self::{resources::*, systems::*};
+use super::{SimulationState, SpawnPlayerSystemSet};
 use crate::AppState;
 
 // NOTE: Alternatives of before()/after():
@@ -27,13 +28,22 @@ pub struct PlayerPlugin;
 impl Plugin for PlayerPlugin {
     fn build(&self, app: &mut App) {
         app.configure_set(MovementSystemSet.before(ConfinementSystemSet))
+            // Resources
+            .init_resource::<PlayerPositionGrid>()
             // NOTE: Enter state systems
-            .add_system(spawn_player.in_schedule(OnEnter(AppState::Game)))
+            .add_systems(
+                (
+                    spawn_player.in_set(SpawnPlayerSystemSet),
+                    generate_player_position_grid.after(spawn_player),
+                )
+                    .in_schedule(OnEnter(AppState::Game)),
+            )
             // NOTE: Systems
             .add_systems(
                 (
                     player_movement.in_set(MovementSystemSet),
                     confine_player_movement.in_set(ConfinementSystemSet),
+                    update_player_position_grid.in_set(ConfinementSystemSet),
                 )
                     .in_set(OnUpdate(AppState::Game))
                     .in_set(OnUpdate(SimulationState::Running)),

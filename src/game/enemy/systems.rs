@@ -2,28 +2,35 @@ use bevy::{prelude::*, window::PrimaryWindow};
 use rand::prelude::*;
 
 use super::{components::*, resources::*, ENEMY_SIZE, ENEMY_SPEED, NUMBER_OF_ENEMIES};
-use crate::helpers::{despawn_entities, spawn_entity};
+use crate::{
+    events::SpawnedPlayerEvent,
+    game::{player::resources::PlayerPositionGrid, CELL_SIZE},
+    helpers::{despawn_entities, find_available_position, spawn_entity},
+};
 
 pub fn spawn_enemies(
     mut commands: Commands,
-    window_query: Query<&Window, With<PrimaryWindow>>,
+    mut spawned_player_event_reader: EventReader<SpawnedPlayerEvent>,
+    player_position_grid: Res<PlayerPositionGrid>,
     asset_server: Res<AssetServer>,
 ) {
-    let window = window_query.get_single().unwrap();
+    println!("Spawning enemies...");
+    // TODO: SpawnedPlayerEvent may be useless here.
+    for _event in spawned_player_event_reader.iter() {
+        println!("Got player position!");
+        for _ in 0..NUMBER_OF_ENEMIES {
+            let random_position = find_available_position(&player_position_grid.grid, CELL_SIZE);
 
-    for _ in 0..NUMBER_OF_ENEMIES {
-        let random_x = random::<f32>() * window.width();
-        let random_y = random::<f32>() * window.height();
-
-        spawn_entity(
-            &mut commands,
-            &asset_server,
-            "sprites/ball_red_large.png",
-            Vec2::new(random_x, random_y),
-            Enemy {
-                direction: Vec2::new(random::<f32>(), random::<f32>()).normalize(),
-            },
-        )
+            spawn_entity(
+                &mut commands,
+                &asset_server,
+                "sprites/ball_red_large.png",
+                random_position,
+                Enemy {
+                    direction: Vec2::new(random::<f32>(), random::<f32>()).normalize(),
+                },
+            )
+        }
     }
 }
 
@@ -119,20 +126,18 @@ pub fn tick_enemy_spawn_timer(mut enemy_spawn_timer: ResMut<EnemySpawnTimer>, ti
 
 pub fn spawn_enemies_over_time(
     mut commands: Commands,
-    window_query: Query<&Window, With<PrimaryWindow>>,
+    player_position_grid: Res<PlayerPositionGrid>,
     asset_server: Res<AssetServer>,
     enemy_spawn_timer: Res<EnemySpawnTimer>,
 ) {
     if enemy_spawn_timer.timer.finished() {
-        let window = window_query.get_single().unwrap();
-        let random_x = random::<f32>() * window.width();
-        let random_y = random::<f32>() * window.height();
+        let random_position = find_available_position(&player_position_grid.grid, CELL_SIZE);
 
         spawn_entity(
             &mut commands,
             &asset_server,
             "sprites/ball_red_large.png",
-            Vec2::new(random_x, random_y),
+            random_position,
             Enemy {
                 direction: Vec2::new(random::<f32>(), random::<f32>()).normalize(),
             },

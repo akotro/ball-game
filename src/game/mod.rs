@@ -7,7 +7,7 @@ mod ui;
 
 use bevy::prelude::*;
 
-use crate::{events::GameOverEvent, AppState};
+use crate::{events::*, AppState};
 use enemy::EnemyPlugin;
 use player::PlayerPlugin;
 use score::ScorePlugin;
@@ -15,13 +15,24 @@ use star::StarPlugin;
 use systems::*;
 use ui::*;
 
+// use self::player::systems::draw_player_position_grid_lines;
+
+#[derive(SystemSet, Debug, Hash, PartialEq, Eq, Clone)]
+pub struct SpawnPlayerSystemSet;
+
+#[derive(SystemSet, Debug, Hash, PartialEq, Eq, Clone)]
+pub struct SpawnOthersSystemSet;
+
+pub const CELL_SIZE: f32 = 64.0;
+
 pub struct GamePlugin;
 
 impl Plugin for GamePlugin {
     fn build(&self, app: &mut App) {
-        app
+        app.configure_set(SpawnPlayerSystemSet.before(SpawnOthersSystemSet))
             // NOTE: Events
             .add_event::<GameOverEvent>()
+            .add_event::<SpawnedPlayerEvent>()
             // NOTE: States
             .add_state::<SimulationState>()
             // NOTE: Enter state systems
@@ -34,6 +45,7 @@ impl Plugin for GamePlugin {
             .add_plugin(GameUIPlugin)
             // NOTE: Systems
             .add_system(toggle_simulation.run_if(in_state(AppState::Game)))
+            // .add_system(draw_player_position_grid_lines.run_if(in_state(AppState::Game)))
             // NOTE: Exit state systems
             .add_system(resume_simulation.in_schedule(OnExit(AppState::Game)));
     }

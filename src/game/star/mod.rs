@@ -3,7 +3,9 @@ mod resources;
 mod systems;
 
 use self::{resources::*, systems::*};
-use super::SimulationState;
+use super::{
+    player::systems::generate_player_position_grid, SimulationState, SpawnOthersSystemSet,
+};
 use crate::AppState;
 use bevy::prelude::*;
 
@@ -16,7 +18,12 @@ impl Plugin for StarPlugin {
     fn build(&self, app: &mut App) {
         app.init_resource::<StarSpawnTimer>()
             // NOTE: Enter state systems
-            .add_system(spawn_stars.in_schedule(OnEnter(AppState::Game)))
+            .add_system(
+                spawn_stars
+                    .after(generate_player_position_grid)
+                    .in_set(SpawnOthersSystemSet)
+                    .in_schedule(OnEnter(AppState::Game)),
+            )
             // NOTE: Systems
             .add_systems(
                 (tick_star_spawn_timer, spawn_stars_over_time)
