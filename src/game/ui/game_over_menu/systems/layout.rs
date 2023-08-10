@@ -1,7 +1,6 @@
 use bevy::prelude::*;
 
-use crate::game::ui::game_over_menu::components::*;
-use crate::game::ui::game_over_menu::styles::*;
+use crate::game::ui::game_over_menu::{components::*, styles::*};
 
 pub fn spawn_game_over_menu(mut commands: Commands, asset_server: Res<AssetServer>) {
     build_game_over_menu(&mut commands, &asset_server);

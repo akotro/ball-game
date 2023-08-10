@@ -11,6 +11,16 @@ pub const HUD_STYLE: Style = Style {
     ..Style::DEFAULT
 };
 
+pub const COUNTDOWN_HUD_STYLE: Style = Style {
+    display: Display::Flex,
+    flex_direction: FlexDirection::Row,
+    justify_content: JustifyContent::Center,
+    align_items: AlignItems::Center,
+    size: Size::new(Val::Px(360.0), Val::Percent(80.0)),
+    margin: UiRect::new(Val::Px(0.0), Val::Px(0.0), Val::Px(0.0), Val::Px(0.0)),
+    ..Style::DEFAULT
+};
+
 pub const LHS_STYLE: Style = Style {
     display: Display::Flex,
     flex_direction: FlexDirection::Row,
@@ -42,5 +52,13 @@ pub fn get_text_style(asset_server: &Res<AssetServer>) -> TextStyle {
         font: asset_server.load("fonts/FiraSans-Bold.ttf"),
         font_size: 64.0,
         color: Color::rgb(1.0, 1.0, 1.0),
+    }
+}
+
+pub fn get_countdown_text_style(asset_server: &Res<AssetServer>) -> TextStyle {
+    TextStyle {
+        font: asset_server.load("fonts/FiraSans-Bold.ttf"),
+        font_size: 80.0,
+        color: Color::CRIMSON,
     }
 }

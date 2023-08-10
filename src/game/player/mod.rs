@@ -36,7 +36,7 @@ impl Plugin for PlayerPlugin {
                     spawn_player.in_set(SpawnPlayerSystemSet),
                     generate_player_position_grid.after(spawn_player),
                 )
-                    .in_schedule(OnEnter(AppState::Game)),
+                    .in_schedule(OnEnter(AppState::Startup)),
             )
             // NOTE: Systems
             .add_systems(

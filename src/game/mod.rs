@@ -36,7 +36,7 @@ impl Plugin for GamePlugin {
             // NOTE: States
             .add_state::<SimulationState>()
             // NOTE: Enter state systems
-            .add_system(pause_simulation.in_schedule(OnEnter(AppState::Game)))
+            // .add_system(pause_simulation.in_schedule(OnEnter(AppState::Game)))
             // NOTE: Plugins
             .add_plugin(EnemyPlugin)
             .add_plugin(PlayerPlugin)
@@ -47,6 +47,7 @@ impl Plugin for GamePlugin {
             .add_system(toggle_simulation.run_if(in_state(AppState::Game)))
             // .add_system(draw_player_position_grid_lines.run_if(in_state(AppState::Game)))
             // NOTE: Exit state systems
+            // TODO: This probably should not be the case
             .add_system(resume_simulation.in_schedule(OnExit(AppState::Game)));
     }
 }

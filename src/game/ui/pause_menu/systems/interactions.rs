@@ -18,6 +18,7 @@ pub fn interact_with_resume_button(
             Interaction::Clicked => {
                 *color = PRESSED_BUTTON.into();
                 simulation_state_next_state.set(SimulationState::Running);
+                println!("Simulation running.");
             }
             Interaction::Hovered => {
                 *color = HOVERED_BUTTON.into();

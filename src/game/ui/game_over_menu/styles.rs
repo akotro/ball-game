@@ -44,7 +44,7 @@ pub fn get_high_score_text_style(asset_server: &Res<AssetServer>) -> TextStyle {
     TextStyle {
         font: asset_server.load("fonts/FiraSans-Bold.ttf"),
         font_size: 48.0,
-        color: Color::SEA_GREEN,
+        color: Color::WHITE,
     }
 }
 

@@ -18,8 +18,8 @@ pub fn transition_to_game_state(
     mut next_app_state: ResMut<NextState<AppState>>,
 ) {
     if keyboard_input.just_pressed(KeyCode::G) && app_state.0 != AppState::Game {
-        next_app_state.set(AppState::Game);
-        println!("Entered AppState::Game");
+        next_app_state.set(AppState::Startup);
+        println!("Entered AppState::Startup");
     }
 }
 

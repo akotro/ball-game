@@ -22,7 +22,7 @@ impl Plugin for StarPlugin {
                 spawn_stars
                     .after(generate_player_position_grid)
                     .in_set(SpawnOthersSystemSet)
-                    .in_schedule(OnEnter(AppState::Game)),
+                    .in_schedule(OnEnter(AppState::Startup)),
             )
             // NOTE: Systems
             .add_systems(

@@ -6,7 +6,7 @@ pub fn spawn_hud(mut commands: Commands, asset_server: Res<AssetServer>) {
     build_hud(&mut commands, &asset_server);
 }
 
-pub fn build_hud(commands: &mut Commands, asset_server: &Res<AssetServer>) -> Entity {
+fn build_hud(commands: &mut Commands, asset_server: &Res<AssetServer>) -> Entity {
     let hud_entity = commands
         .spawn((
             NodeBundle {
@@ -44,6 +44,32 @@ pub fn build_hud(commands: &mut Commands, asset_server: &Res<AssetServer>) -> En
                         ScoreText {},
                     ));
                 });
+            // CENTER COUNTDOWN
+            parent
+                .spawn((
+                    NodeBundle {
+                        style: COUNTDOWN_HUD_STYLE,
+                        background_color: BACKGROUND_COLOR.into(),
+                        ..default()
+                    },
+                    CountdownHud {},
+                ))
+                .with_children(|parent| {
+                    parent.spawn((
+                        TextBundle {
+                            text: Text {
+                                sections: vec![TextSection::new(
+                                    "3",
+                                    get_countdown_text_style(asset_server),
+                                )],
+                                alignment: TextAlignment::Center,
+                                ..default()
+                            },
+                            ..default()
+                        },
+                        CountdownText {},
+                    ));
+                });
             // RHS
             parent
                 .spawn(NodeBundle {
@@ -76,6 +102,12 @@ pub fn build_hud(commands: &mut Commands, asset_server: &Res<AssetServer>) -> En
         .id();
 
     hud_entity
+}
+
+pub fn despawn_countdown_hud(mut commands: Commands, hud_query: Query<Entity, With<CountdownHud>>) {
+    for entity in hud_query.iter() {
+        commands.entity(entity).despawn_recursive();
+    }
 }
 
 pub fn despawn_hud(mut commands: Commands, hud_query: Query<Entity, With<Hud>>) {

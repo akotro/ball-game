@@ -2,12 +2,14 @@ use bevy::prelude::*;
 
 use super::SimulationState;
 
-pub fn pause_simulation(mut simulation_state_next_state: ResMut<NextState<SimulationState>>) {
-    simulation_state_next_state.set(SimulationState::Paused);
-}
+// pub fn pause_simulation(mut simulation_state_next_state: ResMut<NextState<SimulationState>>) {
+//     simulation_state_next_state.set(SimulationState::Paused);
+//     println!("Simulation paused.");
+// }
 
 pub fn resume_simulation(mut simulation_state_next_state: ResMut<NextState<SimulationState>>) {
     simulation_state_next_state.set(SimulationState::Running);
+    println!("Simulation running.");
 }
 
 pub fn toggle_simulation(
@@ -19,12 +21,10 @@ pub fn toggle_simulation(
         match simulation_state.0 {
             SimulationState::Running => {
                 next_simulation_state.set(SimulationState::Paused);
-                // pause_simulation(next_simulation_state);
                 println!("Simulation paused.");
             }
             SimulationState::Paused => {
                 next_simulation_state.set(SimulationState::Running);
-                // resume_simulation(next_simulation_state);
                 println!("Simulation running.");
             }
         }
