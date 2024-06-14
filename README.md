@@ -1,13 +1,13 @@
-# Bevy Ball Game
+# Ball Game
 
-Bevy Ball Game is a simple 2D game written in [Rust](https://www.rust-lang.org/), using the [Bevy](https://bevyengine.org/) game engine version 0.10. I used this as a learning tool so any suggestions are welcome.
+Ball Game is a simple 2D game written in [Rust](https://www.rust-lang.org/), using the [Bevy](https://bevyengine.org/) game engine version 0.10. I used this as a learning tool so any suggestions are welcome.
 </br>
 
 ## How to Play
 
 Collect stars, avoid the red balls and try to beat your high score!</br>
 
-Play it online at [akotro.github.io/bevy-ball-game](https://akotro.github.io/bevy-ball-game/).</br>
+Play it online at [akotro.github.io/ball-game](https://akotro.github.io/ball-game/).</br>
 
 To play the game, use the following keybinds:
 
