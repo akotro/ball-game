@@ -1,11 +1,13 @@
-<!DOCTYPE html><html lang="en"><head>
-        <meta charset="utf-8">
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8"/>
         <title>Bevy Ball Game</title> <!-- ToDo -->
         
         <!-- <link data-trunk rel="copy-dir" href="credits"/> -->
         
         <link rel="icon" href="icon.ico">
-        <style type="text/css">body, html {
+        <style nonce="TspWrRwN8K/DLKrq17lKNA==">body, html {
     height: 100%;
 }
 
@@ -35,10 +37,10 @@ body {
 }
 </style>
     
-<link rel="preload" href="/bevy-ball-game/bevy-ball-game-1f8043745dcb4a4e_bg.wasm" as="fetch" type="application/wasm" crossorigin="">
-<link rel="modulepreload" href="/bevy-ball-game/bevy-ball-game-1f8043745dcb4a4e.js"></head>
+<link rel="modulepreload" href="ball-game/bevy-ball-game-28ea46f0c7c679a.js" crossorigin=anonymous integrity="sha384-0N+bQp4vS4oFxEdtl6Tdx/cv012aGAC0ShOEMTNSird/srgnmG7y1FsJqsaaZYHf">
+<link rel="preload" href="ball-game/bevy-ball-game-28ea46f0c7c679a_bg.wasm" crossorigin=anonymous integrity="sha384-e930KI3EGkksSk8xoBDGMAudokpoSLa4QDSzQQBquLQzRyVW+H0PraiHn3InAcOh" as="fetch" type="application/wasm"></head>
     <body>
-        <script>// Insert hack to make sound autoplay on Chrome as soon as the user interacts with the tab:
+        <script nonce="ZruLWoK9EAeUaQJnJr8FJw==">// Insert hack to make sound autoplay on Chrome as soon as the user interacts with the tab:
 // https://developers.google.com/web/updates/2018/11/web-audio-autoplay#moving-forward
 
 // the following function keeps track of all AudioContexts and resumes them on the first user
@@ -107,5 +109,15 @@ body {
             </canvas>
         </div>
     
+<script type="module" nonce="QE+g2t8QObGyTcbkr/Xj0Q==">
+import init, * as bindings from 'ball-game/bevy-ball-game-28ea46f0c7c679a.js';
+const wasm = await init('ball-game/bevy-ball-game-28ea46f0c7c679a_bg.wasm');
 
-<script type="module">import init from '/bevy-ball-game/bevy-ball-game-1f8043745dcb4a4e.js';init('/bevy-ball-game/bevy-ball-game-1f8043745dcb4a4e_bg.wasm');</script></body></html>
+
+window.wasmBindings = bindings;
+
+
+dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
+
+</script></body>
+</html>
