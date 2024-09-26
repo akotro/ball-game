@@ -1,13 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8"/>
-        <title>Bevy Ball Game</title> <!-- ToDo -->
-        
-        <!-- <link data-trunk rel="copy-dir" href="credits"/> -->
-        
-        <link rel="icon" href="icon.ico">
-        <style nonce="v4ELqRz/wVbUQimrMPDazA==">body, html {
+  <head>
+    <meta charset="utf-8" />
+    <title>Ball Game</title>
+    
+    <!-- <link data-trunk rel="copy-dir" href="credits"/> -->
+    
+    <link rel="icon" href="icon.ico" />
+    <style nonce="4dGVkEeWr3cOj12uYgd3Ag==">body, html {
     height: 100%;
 }
 
@@ -36,11 +36,11 @@ body {
     height: 600px;
 }
 </style>
-    
-<link rel="modulepreload" href="ball-game/bevy-ball-game-40b7c46fb68c5c0e.js" crossorigin=anonymous integrity="sha384-+xY83zv4flybHOXWT3KpLdYM42dtcDt+12VoAYQMATUGVHvwgFjkBtrSMZansH/l">
-<link rel="preload" href="ball-game/bevy-ball-game-40b7c46fb68c5c0e_bg.wasm" crossorigin=anonymous integrity="sha384-HPHG7Z/PE+pBP0VOVeJbfFFk7Ifu4FdskpPE/agO1N64O8ABHLd0trJ3m++UUlay" as="fetch" type="application/wasm"></head>
-    <body>
-        <script nonce="n559G4Y7GQSUonvb8fNWLA==">// Insert hack to make sound autoplay on Chrome as soon as the user interacts with the tab:
+  
+<link rel="modulepreload" href="./bevy-ball-game-7c7ff10198d20e80.js" crossorigin=anonymous integrity="sha384-5UnDFPZPZ9/gnThSN+ApYA/5gPlrDv2rjLDy4AHm223b/vMIO7la3+DMAOU7iu7+">
+<link rel="preload" href="./bevy-ball-game-7c7ff10198d20e80_bg.wasm" crossorigin=anonymous integrity="sha384-1xvL+9Uz61eEz1GmWtzXPZXvPNOed2Yv4lcG6Q/ccCwRAmao6nsOKmUdN52wvyJj" as="fetch" type="application/wasm"></head>
+  <body>
+    <script nonce="lamDUBTJ5KEIfIsnDRNyog==">// Insert hack to make sound autoplay on Chrome as soon as the user interacts with the tab:
 // https://developers.google.com/web/updates/2018/11/web-audio-autoplay#moving-forward
 
 // the following function keeps track of all AudioContexts and resumes them on the first user
@@ -103,15 +103,14 @@ body {
     });
 })();
 </script>
-        <div class="game-container">
-            <canvas id="bevy">
-                Javascript and support for canvas is required
-            </canvas>
-        </div>
-    
-<script type="module" nonce="oRB9xY45BBiDGsr9Ly+23Q==">
-import init, * as bindings from 'ball-game/bevy-ball-game-40b7c46fb68c5c0e.js';
-const wasm = await init('ball-game/bevy-ball-game-40b7c46fb68c5c0e_bg.wasm');
+    <div class="game-container">
+      <div class="lds-dual-ring"></div>
+      <canvas id="bevy"> Javascript and support for canvas is required </canvas>
+    </div>
+  
+<script type="module" nonce="sHSVUcV9ZkAxsDXKVogZLA==">
+import init, * as bindings from './bevy-ball-game-7c7ff10198d20e80.js';
+const wasm = await init('./bevy-ball-game-7c7ff10198d20e80_bg.wasm');
 
 
 window.wasmBindings = bindings;
